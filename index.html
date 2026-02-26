@@ -102,27 +102,27 @@
         }
 
         .company-name {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 900;
             text-align: center;
             padding: 10px 15px 5px;
-            background: linear-gradient(135deg, #667eea 0%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #667eea;
             letter-spacing: 3px;
-            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.3);
+            background: none;
         }
 
-        .company-slogan {
-            text-align: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 11px;
-            padding: 5px 15px 15px;
-            border-bottom: 1px solid var(--sidebar-border);
-            margin-bottom: 10px;
-            letter-spacing: 3px;
+        @supports (-webkit-background-clip: text) or (background-clip: text) {
+            .company-name {
+                background: linear-gradient(135deg, #667eea 0%, #f5576c 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-shadow: none;
+            }
         }
+
+
 
         .sidebar-footer {
             position: absolute;
@@ -439,7 +439,6 @@
 
     <nav class="sidebar">
         <div class="company-name">Pfa</div>
-        <div class="company-slogan">批 发 供 应 平 台</div>
         
         <div class="nav-group">
             <div class="nav-group-title">自媒体宣传</div>
