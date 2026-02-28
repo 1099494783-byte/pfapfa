@@ -19,6 +19,9 @@
             --accent: #4fc3f7;
             --nav-text: #ccc;
             --nav-active: #4fc3f7;
+            --gradient-1: #667eea;
+            --gradient-2: #f5576c;
+            --sidebar-glass: rgba(26, 26, 46, 0.9);
         }
 
         [data-theme="dark"] {
@@ -33,6 +36,8 @@
             --border-color: #333;
             --nav-text: #aaa;
             --nav-active: #4fc3f7;
+            --sidebar-glass: rgba(15, 15, 26, 0.9);
+        }
         }
 
         * {
@@ -80,7 +85,7 @@
 
         .sidebar {
             width: 220px;
-            background: rgba(26, 26, 46, 0.9);
+            background: var(--sidebar-glass);
             backdrop-filter: blur(10px);
             color: #fff;
             padding: 20px 0;
@@ -152,31 +157,87 @@
         }
 
         .nav-group {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .nav-group:hover {
+            background: rgba(255,255,255,0.05);
         }
 
         .nav-group-title {
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
-            padding: 20px 20px 10px;
+            font-size: 15px;
+            color: #fff;
+            padding: 14px 18px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(245, 87, 108, 0.2) 100%);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .nav-group-title .arrow {
+            transition: transform 0.3s ease;
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .nav-group.collapsed .nav-group-title {
+            border-radius: 8px;
+        }
+
+        .nav-group.collapsed .nav-group-title .arrow {
+            transform: rotate(-90deg);
+        }
+
+        .nav-items {
+            overflow: hidden;
+            max-height: 400px;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+            opacity: 1;
+            transform-origin: top;
+            transform: scaleY(1);
+        }
+
+        .nav-group.collapsed .nav-items {
+            max-height: 0;
+            opacity: 0;
+            transform: scaleY(0.8);
         }
 
         .nav-item {
             display: block;
-            padding: 12px 20px;
+            padding: 10px 18px 10px 26px;
             color: #a0a0c0;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.25s ease;
             font-size: 14px;
             cursor: pointer;
+            border-left: 3px solid transparent;
+            transform-origin: left center;
+        }
+
+        .nav-group.collapsed .nav-item {
+            opacity: 0;
+            transform: translateX(-15px) scale(0.95);
+        }
+
+        .nav-group:not(.collapsed) .nav-item {
+            opacity: 1;
+            transform: translateX(0) scale(1);
         }
 
         .nav-item:hover {
-            background: var(--sidebar-border);
-            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            color: #fff;
+            border-left-color: #667eea;
+            padding-left: 30px;
         }
 
         .nav-item.active {
@@ -446,21 +507,37 @@
         <div class="company-name">Pfa</div>
         
         <div class="nav-group">
-            <div class="nav-group-title">核心工作</div>
+            <div class="nav-group-title" onclick="toggleNavGroup(this)">店铺网站 <span class="arrow">▼</span></div>
+            <div class="nav-items">
+            <a href="#wishcare" class="nav-item" ondblclick="window.open('https://shop.wish-care.com/','_blank')">wish-care</a>
+            <a href="#wishcare2" class="nav-item">wish-care官网</a>
+            <a href="#soloenibiza" class="nav-item" ondblclick="window.open('https://soloenibiza.com/','_blank')">soloenibiza</a>
+            <a href="#odosbeauty" class="nav-item" ondblclick="window.open('https://odosbeauty.com/','_blank')">odosbeauty</a>
+            <a href="#declassified" class="nav-item" ondblclick="window.open('https://declassifiedshop.com/','_blank')">declassified</a>
+            <a href="#airfusion" class="nav-item" ondblclick="window.open('https://air-fusion.com/','_blank')">air-fusion</a>
+            </div>
+        </div>
+        
+        <div class="nav-group">
+            <div class="nav-group-title" onclick="toggleNavGroup(this)">核心工作 <span class="arrow">▼</span></div>
+            <div class="nav-items">
             <a href="#my168" class="nav-item" ondblclick="window.open('https://my168.pfa.com/','_blank')">my168</a>
             <a href="#biz" class="nav-item" ondblclick="window.open('https://biz.pfa.com/','_blank')">biz</a>
             <a href="#shopify" class="nav-item" ondblclick="window.open('https://admin.shopify.com/store/7217c5-c1/orders/7029691646145','_blank')">Shopify</a>
             <a href="#gofo" class="nav-item" ondblclick="window.open('https://www.gofoexpress.com/index.html','_blank')">Gofo</a>
             <a href="#veeqo" class="nav-item" ondblclick="window.open('https://app.veeqo.com/','_blank')">Veeqo</a>
             <a href="#email" class="nav-item" ondblclick="window.open('https://mail.zoho.com/zm/#mail/folder/inbox','_blank')">Zoho Mail</a>
+            </div>
         </div>
         
         <div class="nav-group">
-            <div class="nav-group-title">数据表格</div>
+            <div class="nav-group-title" onclick="toggleNavGroup(this)">数据表格 <span class="arrow">▼</span></div>
+            <div class="nav-items">
             <a href="#inventory" class="nav-item">库存</a>
             <a href="#dimensions" class="nav-item">货物尺寸表</a>
             <a href="#after-sale" class="nav-item">售后问题</a>
             <a href="#influencer" class="nav-item">达人寄样</a>
+            </div>
         </div>
 
         <div class="sidebar-footer">
@@ -478,6 +555,90 @@
             <div class="recent-title"><i class="ri-time-line"></i> 最近访问</div>
             <div class="recent-list" id="recentList"></div>
         </div>
+
+        <section id="wishcare" class="section">
+            <h2 class="section-title"><i class="ri-store-line"></i> wish-care</h2>
+            <a href="https://shop.wish-care.com/" target="_blank" class="link-card" data-keyword="wishcare wish-care 店铺">
+                <div class="card-icon" style="background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%); color: #fff;">
+                    <i class="ri-shopping-bag-line"></i>
+                </div>
+                <div class="card-content">
+                    <h3>wish-care 店铺</h3>
+                    <p>线上销售店铺，查看商品信息</p>
+                    <div class="url">https://shop.wish-care.com/</div>
+                </div>
+            </a>
+        </section>
+
+        <section id="wishcare2" class="section">
+            <h2 class="section-title"><i class="ri-global-line"></i> wish-care 官网</h2>
+            <a href="https://www.wish-care.com/" target="_blank" class="link-card" data-keyword="wishcare wish-care 官网 宣传">
+                <div class="card-icon" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #fff;">
+                    <i class="ri-home-4-line"></i>
+                </div>
+                <div class="card-content">
+                    <h3>wish-care 官网</h3>
+                    <p>品牌宣传介绍页面，可跳转查看产品</p>
+                    <div class="url">https://www.wish-care.com/</div>
+                </div>
+            </a>
+        </section>
+
+        <section id="soloenibiza" class="section">
+            <h2 class="section-title"><i class="ri-store-line"></i> soloenibiza</h2>
+            <a href="https://soloenibiza.com/" target="_blank" class="link-card" data-keyword="soloenibiza 店铺">
+                <div class="card-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #fff;">
+                    <i class="ri-shopping-bag-line"></i>
+                </div>
+                <div class="card-content">
+                    <h3>soloenibiza</h3>
+                    <p>线上销售店铺，查看商品信息</p>
+                    <div class="url">https://soloenibiza.com/</div>
+                </div>
+            </a>
+        </section>
+
+        <section id="odosbeauty" class="section">
+            <h2 class="section-title"><i class="ri-store-line"></i> odosbeauty</h2>
+            <a href="https://odosbeauty.com/" target="_blank" class="link-card" data-keyword="odosbeauty 店铺">
+                <div class="card-icon" style="background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); color: #fff;">
+                    <i class="ri-shopping-bag-line"></i>
+                </div>
+                <div class="card-content">
+                    <h3>odosbeauty</h3>
+                    <p>线上销售店铺，查看商品信息</p>
+                    <div class="url">https://odosbeauty.com/</div>
+                </div>
+            </a>
+        </section>
+
+        <section id="declassified" class="section">
+            <h2 class="section-title"><i class="ri-store-line"></i> declassified</h2>
+            <a href="https://declassifiedshop.com/" target="_blank" class="link-card" data-keyword="declassified 店铺">
+                <div class="card-icon" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%); color: #fff;">
+                    <i class="ri-shopping-bag-line"></i>
+                </div>
+                <div class="card-content">
+                    <h3>declassified</h3>
+                    <p>线上销售店铺，查看商品信息</p>
+                    <div class="url">https://declassifiedshop.com/</div>
+                </div>
+            </a>
+        </section>
+
+        <section id="airfusion" class="section">
+            <h2 class="section-title"><i class="ri-store-line"></i> air-fusion</h2>
+            <a href="https://air-fusion.com/" target="_blank" class="link-card" data-keyword="airfusion air-fusion 店铺">
+                <div class="card-icon" style="background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%); color: #fff;">
+                    <i class="ri-shopping-bag-line"></i>
+                </div>
+                <div class="card-content">
+                    <h3>air-fusion</h3>
+                    <p>线上销售店铺，查看商品信息</p>
+                    <div class="url">https://air-fusion.com/</div>
+                </div>
+            </a>
+        </section>
 
         <section id="my168" class="section">
             <h2 class="section-title"><i class="ri-shopping-bag-line"></i> my168</h2>
@@ -605,6 +766,20 @@
             </a>
         </section>
 
+        <section id="influencer" class="section">
+            <h2 class="section-title"><i class="ri-mic-line"></i> 达人寄样</h2>
+            <a href="https://my.feishu.cn/sheets/WjUTsflKLhd6HstWLp1chy6FnWe?sheet=KfmBZD" target="_blank" class="link-card" data-keyword="达人寄样 自媒体 宣传">
+                <div class="card-icon influencer">
+                    <i class="ri-user-star-line"></i>
+                </div>
+                <div class="card-content">
+                    <h3>达人寄样管理</h3>
+                    <p>记录达人地址信息并管理发货状态</p>
+                    <div class="url">https://my.feishu.cn/sheets/WjUTsflKLhd6HstWLp1chy6FnWe?sheet=KfmBZD</div>
+                </div>
+            </a>
+        </section>
+
         <div class="no-results" id="noResults">没有找到匹配的结果</div>
     </main>
 
@@ -612,6 +787,11 @@
         function toggleSidebar() {
             document.querySelector('.sidebar').classList.toggle('open');
             document.querySelector('.sidebar-overlay').classList.toggle('show');
+        }
+
+        function toggleNavGroup(title) {
+            const group = title.parentElement;
+            group.classList.toggle('collapsed');
         }
 
         function filterCards() {
@@ -684,6 +864,12 @@
         });
 
         const linkData = {
+            'wishcare': { title: 'wish-care', url: 'https://shop.wish-care.com/' },
+            'wishcare2': { title: 'wish-care官网', url: 'https://www.wish-care.com/' },
+            'soloenibiza': { title: 'soloenibiza', url: 'https://soloenibiza.com/' },
+            'odosbeauty': { title: 'odosbeauty', url: 'https://odosbeauty.com/' },
+            'declassified': { title: 'declassified', url: 'https://declassifiedshop.com/' },
+            'airfusion': { title: 'air-fusion', url: 'https://air-fusion.com/' },
             'my168': { title: '处理订单/面单', url: 'https://my168.pfa.com/' },
             'biz': { title: '货品/物流查询', url: 'https://biz.pfa.com/' },
             'shopify': { title: '配送状态/风险', url: 'https://admin.shopify.com/store/7217c5-c1/orders/7029691646145' },
